@@ -1,8 +1,6 @@
 import java.util.Scanner;
 
 public class PlayerHuman implements Player {
-
-
     int points ;
     String name;
     @Override
@@ -21,7 +19,6 @@ public class PlayerHuman implements Player {
         System.out.println( " Twój ruch ");
         return scanner.nextInt();
     }
-
     @Override
     public void setName(String name) {
         this.name = name;

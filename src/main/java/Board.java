@@ -39,7 +39,7 @@ public class Board {
             if (board[row][col] == ' ') {
                 board[row][col] = playErSymbol;
             } else {
-                System.out.println("To miejsce jest już zajęte . Wybierz inne pole ");
+                throw new IllegalArgumentException("To miejsce jest już zajęte . Wybierz inne pole ");
             }
         }
 
