@@ -1,16 +1,17 @@
 public class Runner {
     public static void main(String[] args) {
-        PlayerHuman player1 = new PlayerHuman();
+        PlayerComputer player1 = new PlayerComputer();
         player1.setName("Gracz 1");
 
-        PlayerHuman player2 = new PlayerHuman();
+        PlayerComputer player2 = new PlayerComputer();
         player2.setName("Gracz 2");
 
         Board board = new Board();
         GameLogic gameLogic = new GameLogic(player1, player2, board);
 
-        board.displayBoard(); // <-- tu chyba nie działa
+        board.displayBoard();
 
         gameLogic.startGame();
+
     }
 }

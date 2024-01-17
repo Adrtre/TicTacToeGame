@@ -2,52 +2,57 @@ public class Board {
     private char[][] board;
 
     public Board() {
-        board = new char[3][3];
+        board = new char[10][10];
         emptyBoard();
     }
 
     public void emptyBoard() {
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
+        for (int i = 0; i < 10; i++) {
+            for (int j = 0; j < 10; j++) {
                 board[i][j] = ' ';
             }
         }
     }
-    //wyświetlenie planszy
-    public void displayBoard() {
 
-        System.out.println("  1  2  3");
-        for (int i = 0; i < 3; i++) {
+    public void displayBoard() {
+        System.out.println(" 1   2   3   4   5   6   7   8    9  10");
+        for (int i = 0; i < 10; i++) {
             System.out.print(" ");
-            for (int j = 0; j < 3; j++) {
+
+            for (int j = 0; j < 10; j++) {
                 System.out.print(board[i][j]);
-                if (j < 2) {
+                if (j < 10) {
                     System.out.print(" | ");
+
                 }
+
             }
             System.out.println();
-            if (i < 2) {
-                System.out.println("---|---|----");
+            if (i < 9) {
+                System.out.println("---|---|---|---|---|---|---|---|---|---|");
             }
         }
     }
-    public void makeMove(int position, char playErSymbol) {
+
+    public int[] makeMove(int position, char playerSymbol) {
         if (isMoveValid(position)) {
-            int row = (position - 1) / 3;
-            int col = (position - 1) % 3;
+            int row = (position - 1) / 10;
+            int col = (position - 1) % 10;
 
             if (board[row][col] == ' ') {
-                board[row][col] = playErSymbol;
+                board[row][col] = playerSymbol;
+                return new int[]{row, col};
             } else {
-                throw new IllegalArgumentException("To miejsce jest już zajęte . Wybierz inne pole ");
+                throw new IllegalArgumentException("To miejsce jest już zajęte. Wybierz inne pole.");
             }
         }
-
+        return null;
     }
+
     public boolean isMoveValid(int position) {
-        if (position >= 1 && position <= 9) {
-            int row = (position - 1) / 3;
-            int col = (position - 1) % 3;
+        if (position >= 1 && position <= 100) {
+            int row = (position - 1) / 10;
+            int col = (position - 1) % 10;
 
             if (board[row][col] == ' ') {
                 return true;
@@ -56,46 +61,57 @@ public class Board {
                 return false;
             }
         } else {
-            System.out.println("Wybrałeś nieprawidłowy numer. Musisz wybrać od 1 do 9.");
+            System.out.println("Wybrałeś nieprawidłowy numer. Musisz wybrać od 1 do 100.");
             return false;
         }
     }
 
     public boolean isBoardFull() {
-        for (int i = 0 ; i < 3 ; i++){
-            for (int j = 0 ; j<3; j++){
-                if (board[i][j] == ' ' ){
-                    return false ; // <-- jako puste pole
+        for (int i = 0; i < 10; i++) {
+            for (int j = 0; j < 10; j++) {
+                if (board[i][j] == ' ') {
+                    return false;
                 }
             }
         }
         return true;
     }
-    public boolean checkForWin(char playerSymbol) {
 
-        for (int i = 0; i < 3; i++) {
-            //rzad
-            if (board[i][0] == playerSymbol && board[i][1] == playerSymbol && board[i][2] == playerSymbol) {
-                return true;
+    public boolean checkForWinAtPosition(int row, int col, char playerSymbol) {
+        int[][] directions = {{0, 1}, {1, 0}, {1, 1}, {1, -1}};
+
+        for (int[] direction : directions) {
+            int count = 1;
+
+            for (int i = 1; i <= 4; i++) {
+                int newRow = row + i * direction[0];
+                int newCol = col + i * direction[1];
+
+                if (newRow >= 0 && newRow < 10 && newCol >= 0 && newCol < 10 &&
+                        board[newRow][newCol] == playerSymbol) {
+                    count++;
+                } else {
+                    break;
+                }
             }
 
-            //kolumna
-            if (board[0][i] == playerSymbol && board[1][i] == playerSymbol && board[2][i] == playerSymbol) {
+            for (int i = 1; i <= 4; i++) {
+                int newRow = row - i * direction[0];
+                int newCol = col - i * direction[1];
+
+                if (newRow >= 0 && newRow < 10 && newCol >= 0 && newCol < 10 &&
+                        board[newRow][newCol] == playerSymbol) {
+                    count++;
+                } else {
+                    break;
+                }
+            }
+
+            if (count >= 5) {
                 return true;
             }
-        }
-
-        // przekatna
-        if (board[0][0] == playerSymbol && board[1][1] == playerSymbol && board[2][2] == playerSymbol) {
-            return true;
-        }
-
-        if (board[0][2] == playerSymbol && board[1][1] == playerSymbol && board[2][0] == playerSymbol) {
-            return true;
         }
 
         return false;
     }
-
 }
-
