@@ -15,6 +15,7 @@ public class Board {
     }
 
     public void displayBoard() {
+        int k = 10;
         System.out.println(" 1   2   3   4   5   6   7   8    9  10");
         for (int i = 0; i < 10; i++) {
             System.out.print(" ");
@@ -25,9 +26,10 @@ public class Board {
                     System.out.print(" | ");
 
                 }
-
             }
-            System.out.println();
+            System.out.println(" " + k);
+            k += 10;
+
             if (i < 9) {
                 System.out.println("---|---|---|---|---|---|---|---|---|---|");
             }

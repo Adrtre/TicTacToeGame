@@ -1,5 +1,4 @@
 import java.util.Random;
-import java.util.Scanner;
 
 public class PlayerComputer implements Player{
 Random random = new Random();

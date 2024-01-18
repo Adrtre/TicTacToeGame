@@ -41,7 +41,7 @@ public class GameLogic {
             if (board.checkForWinAtPosition(row, col, playerSymbol)) {
                 System.out.println(currentPlayerObj.getName() + " wygrywa!");
                 currentPlayerObj.addPoints();
-                break; // mamy zwycięzcę
+                break; // mamy win
             } else if (board.isBoardFull()) {
                 System.out.println("Remis!");
                 break;
